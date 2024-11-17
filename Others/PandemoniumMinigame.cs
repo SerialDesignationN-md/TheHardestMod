@@ -8,7 +8,7 @@ namespace TheHardestMod
     {
         
         float timeLeft = 10f;
-        float BlockTimer = 1f;
+        float BlockTimer = 4f;
         float totalTime = 0f;
         float shakeStrenght = 0f;
         float WaitBeforeBang = 3f;
@@ -19,7 +19,7 @@ namespace TheHardestMod
 
         private void Start()
         {
-            timeLeft = UnityEngine.Random.Range(30f, 180f);
+            timeLeft = UnityEngine.Random.Range(30f, 90f);
             Singleton<BaseGameManager>.Instance.Ec.GetBaldi().Praise(timeLeft + 5);
             TMPUGUI = MTM101BaldAPI.UI.UIHelpers.CreateText<TextMeshProUGUI>(MTM101BaldAPI.UI.BaldiFonts.ComicSans24, (Mathf.Round(BlockTimer*10)/10).ToString() + " - press use button to block it",Singleton<CoreGameManager>.Instance.GetHud(0).Canvas().transform,Vector3.zero);
             TMPUGUI.color = Color.white;
@@ -46,7 +46,7 @@ namespace TheHardestMod
             
             if (Singleton<InputManager>.Instance.GetDigitalInput("UseItem", true) && !pushingUseButton) {
                 pushingUseButton = true;
-                BlockTimer = Mathf.Clamp(BlockTimer + 0.2f,0,3f);
+                BlockTimer = Mathf.Clamp(BlockTimer + 0.2f,0,4f);
             } else {
                 pushingUseButton = false;
             }

@@ -5,10 +5,11 @@ namespace TheHardestMod.Patches
 {   
     public class ItemManagerPatch
     {
-        [HarmonyPrefix]
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(ItemManager),"Awake")]
         private bool AwakePatch(ItemManager __instance) {
-            __instance.maxItem = 2;
+            
+            Singleton<CoreGameManager>.Instance.GetHud(0).UpdateInventorySize(10);
             return true;
         }
 

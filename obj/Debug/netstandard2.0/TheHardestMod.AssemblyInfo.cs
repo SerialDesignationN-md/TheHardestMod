@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TheHardestMod")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+587a569634dcefc585f9ab6c0934cab244a16b92")]
 [assembly: System.Reflection.AssemblyProductAttribute("TheHardestMod")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TheHardestMod")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

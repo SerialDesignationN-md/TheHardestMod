@@ -111,7 +111,7 @@ namespace TheHardestMod.Npcs
                         PanMini.Stop();
                         Singleton<CoreGameManager>.Instance.audMan.audioDevice.Stop();
                         pandemoniumPC.Despawn();
-
+                        Singleton<CoreGameManager>.Instance.AddPoints(150,0,true,true);
                     }
                     if (PanMini.failure && !caught) {
                         Singleton<BaseGameManager>.Instance.Ec.GetBaldi().CaughtPlayer(Singleton<CoreGameManager>.Instance.GetPlayer(0));

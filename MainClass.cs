@@ -39,7 +39,7 @@ namespace TheHardestMod
         internal AudioClip MetalPipe_Sfx;
         internal AudioClip Sfx_RandomEffect_Drink;
         internal AudioClip Sfx_Pandemonium_Scream;
-
+        internal int laps = 0;
         internal SoundObject Snd_Sfx_RandomEffect_Drink;
         public SoundObject Snd_Sfx_Pandemonium_Scream;
         internal SoundObject Snd_Event_Baldi_Pdm;
@@ -220,7 +220,7 @@ namespace TheHardestMod
 
             MTM101BaldAPI.SaveSystem.ModdedSaveGame.AddSaveHandler(this.Info);
             Instance = this;
-            harmony.PatchAll();
+            harmony.PatchAll()
         }
         IEnumerator LoadAssets() {
             
@@ -322,9 +322,21 @@ namespace TheHardestMod
 
 
                     if (SO.levelTitle == "F4") {
-                        aaa[0].maxRooms = 25;
-                        aaa[0].minRooms = 25;
+                        aaa[0].maxRooms = 2;
+                        aaa[0].minRooms = 2;
+                        SO.levelObject.maxSize = new IntVector2(20,20);
+                        SO.levelObject.minSize = new IntVector2(20,20);
+                        SO.levelObject.exitCount = 8;
                     }
+
+
+
+
+
+
+
+
+                    Debug.Log(SO.levelTitle + " has been modified sucessfully");
 
         }
 
@@ -332,8 +344,7 @@ namespace TheHardestMod
 
 
 
-        [Obsolete]
-        private void OnLoaded() {
+                private void OnLoaded() {
             // assets
            
             randomEffect_PickUp = MTM101BaldAPI.AssetTools.AssetLoader.AudioClipFromFile(Path.Combine(modpath,"Sounds","pickup_randomglasseffect.wav"));
@@ -403,7 +414,7 @@ namespace TheHardestMod
             .Build();
 
             MetalPipe = new ItemBuilder(this.Info)
-            .SetGeneratorCost(200)
+            .SetGeneratorCost(60)
             .SetEnum("MetalPipe")
             .SetShopPrice(350)
             .SetItemComponent<ITM_MetalPipe>()
@@ -462,7 +473,9 @@ namespace TheHardestMod
             SceneObject F3 = SceneObjects.Where(x => x.levelTitle == "F3").First();
             
             var F4 = F1.DuplicateAndNewLevel("F4",4,true);
+            F3.nextLevel = F4;
 
+            F1.nextLevel = F4;
 
 
 
