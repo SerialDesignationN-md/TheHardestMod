@@ -2,15 +2,16 @@ using HarmonyLib;
 
 
 namespace TheHardestMod.Patches
-{   
+{   [HarmonyPatch]
     public class ItemManagerPatch
     {
         [HarmonyPostfix]
         [HarmonyPatch(typeof(ItemManager),"Awake")]
-        private bool AwakePatch(ItemManager __instance) {
+        static private void AwakePatch(ItemManager __instance) {
             
-            Singleton<CoreGameManager>.Instance.GetHud(0).UpdateInventorySize(10);
-            return true;
+            Singleton<CoreGameManager>.Instance.GetHud(0).UpdateInventorySize(3);
+            __instance.maxItem = 2;
+            
         }
 
 	

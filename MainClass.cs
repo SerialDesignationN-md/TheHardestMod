@@ -48,7 +48,9 @@ namespace TheHardestMod
         internal LocalizationAsset Eng;
         internal SceneObject CurrSO;
         internal AudioClip MinigameMusic;
+        internal AudioClip FINALE;
         internal SoundObject Snd_mus_Minigame_Pand;
+        internal SoundObject Snd_FINALE;
         internal RandomEvent PandemoniumEvent;
         internal PlayerManager PlayerInLocker;
         SceneObject Yay;
@@ -58,8 +60,10 @@ namespace TheHardestMod
             Harmony harmony = new Harmony("Wenda.HardestMod");
             MTM101BaldiDevAPI.AddWarningScreen("You are currently playing the 2nd pre-release of the mod! \n Please do not give the mods to others \n\n and also it's not finished YET so there is still a <color=green>LOT</color> to come", false);
             
-            MTM101BaldiDevAPI.AddWarningScreen("oh yeah credits (it's their discord username) thanks to: \n @cheemzit_kiri for some sprites/sounds \n @_pixelguy for helping me for some script and also baldi voice for events\n @missingtextureman101 for helping me too, and also their api!", false);
-            MTM101BaldiDevAPI.AddWarningScreen("thanks to @duckieundefined and @test_dithered99 for playing the pre-release 1 and 2", false);
+            MTM101BaldiDevAPI.AddWarningScreen("oh yeah credits (purple = discord, red=youtube) thanks to: \n <color=purple>@cheemzit_kiri</color> for some sprites/sounds \n <color=purple>@_pixelguy</color> for helping me for some script and also baldi voice for events</color>\n <color=purple>@missingtextureman101</color> for helping me too, and also their api!", false);
+            MTM101BaldiDevAPI.AddWarningScreen("thanks also to everyone down here who made some of the musics used in the mod:\n <color=red>@bartuscus</color> and <color=red>@NoLongerNullMUSIC</color>", false);
+
+            MTM101BaldiDevAPI.AddWarningScreen("and finally thanks to @duckieundefined and @test_dithered99 for playing the pre-release 1 and 2", false);
             modpath = MTM101BaldAPI.AssetTools.AssetLoader.GetModPath(this);
 
             MTM101BaldAPI.Registers.LoadingEvents.RegisterOnAssetsLoaded(this.Info,OnLoaded,false);
@@ -220,7 +224,7 @@ namespace TheHardestMod
 
             MTM101BaldAPI.SaveSystem.ModdedSaveGame.AddSaveHandler(this.Info);
             Instance = this;
-            harmony.PatchAll()
+            harmony.PatchAll();
         }
         IEnumerator LoadAssets() {
             
@@ -322,11 +326,23 @@ namespace TheHardestMod
 
 
                     if (SO.levelTitle == "F4") {
-                        aaa[0].maxRooms = 2;
-                        aaa[0].minRooms = 2;
-                        SO.levelObject.maxSize = new IntVector2(20,20);
-                        SO.levelObject.minSize = new IntVector2(20,20);
+                        aaa[0].maxRooms = 25;
+                        aaa[0].minRooms = 25;
+                        aaa[1].maxRooms = 20;
+                        aaa[1].minRooms = 10;
+                        SO.levelObject.maxSize = new IntVector2(50,5);
+                        SO.levelObject.minSize = new IntVector2(50,5);
                         SO.levelObject.exitCount = 8;
+                        aaa[0].potentialRooms = [
+                        new WeightedRoomAsset
+                        {
+                            selection = Classes[0],
+                            weight = 100
+                        }
+
+
+
+                    ];
                     }
 
 
@@ -352,6 +368,8 @@ namespace TheHardestMod
             MetalPipe_Sfx = MTM101BaldAPI.AssetTools.AssetLoader.AudioClipFromFile(Path.Combine(modpath,"Sounds","MetalPipe_SFX.wav"));
 
             MinigameMusic = MTM101BaldAPI.AssetTools.AssetLoader.AudioClipFromFile(Path.Combine(modpath,"Sounds","Knock Knock.wav"));
+
+            FINALE = MTM101BaldAPI.AssetTools.AssetLoader.AudioClipFromFile(Path.Combine(modpath,"Sounds","THEFINALE.wav"));
            
             Sfx_RandomEffect_Drink = MTM101BaldAPI.AssetTools.AssetLoader.AudioClipFromFile(Path.Combine(modpath,"Sounds","Drinking.wav"));
 
@@ -396,6 +414,8 @@ namespace TheHardestMod
             Snd_Sfx_Pandemonium_Scream = MTM101BaldAPI.ObjectCreators.CreateSoundObject(Sfx_Pandemonium_Scream,"Pandemonium_SCREAM",SoundType.Voice,Color.black,1200);
 
             Snd_mus_Minigame_Pand = MTM101BaldAPI.ObjectCreators.CreateSoundObject(MinigameMusic,"*music*",SoundType.Music,Color.black);
+
+            Snd_FINALE = MTM101BaldAPI.ObjectCreators.CreateSoundObject(FINALE,"*music*",SoundType.Music,Color.black,0.1f);
 
             Snd_Bang_Locker = MTM101BaldAPI.ObjectCreators.CreateSoundObject(Sfx_Locker_Bang,"*bang*",SoundType.Effect,Color.gray,0.6f);
 
