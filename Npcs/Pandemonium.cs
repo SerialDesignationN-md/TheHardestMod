@@ -34,18 +34,31 @@ namespace TheHardestMod.Npcs
     internal class Pandemonium_Chase(PandemoniumNPC pandemonium) : Pandemonium_StateBase(pandemonium)
     {
         protected float speed = 0f;
+        protected float SpeedToGo = 40f;
         protected float timeBeforeChase = 10f;
+        protected bool saw = false;
         private PandemoniumNPC pandemoniumPC = pandemonium;
         public override void Enter()
         {
             base.Enter();
-            
-            pandemoniumPC.AudMan.QueueAudio(TheHardestMod.MainClass.Instance.Snd_Sfx_Pandemonium_Scream);
+            SpeedToGo = 40f;
+            pandemoniumPC.AudMan.QueueAudio(TheHardestMod.MainClass.Instance.Snd_Sfx_Pandemonium_Moving);
             pandemoniumPC.AudMan.SetLoop(true);
             
             
 
         }
+
+        public override void PlayerInSight(PlayerManager player)
+                {
+                    if (!saw) {
+                        saw = true;
+                        pandemoniumPC.AudMan.FlushQueue(true);
+                        pandemoniumPC.AudMan.QueueAudio(TheHardestMod.MainClass.Instance.Snd_Sfx_Pandemonium_Scream);
+                        SpeedToGo = 300;
+                        pandemoniumPC.AudMan.SetLoop(true);
+                    }
+                }
 
         public override void Update()
                 {
@@ -55,7 +68,9 @@ namespace TheHardestMod.Npcs
                     timeBeforeChase -= Time.deltaTime;
                     var distance = (pandemoniumPC.transform.position - Singleton<CoreGameManager>.Instance.GetPlayer(0).transform.position).magnitude;
                     if (timeBeforeChase < 0) {
-                        speed = Mathf.Lerp(speed,2000,0.0001f);
+                        speed = SpeedToGo;
+                    } else {
+                        speed = 0f;
                     }
 
 
@@ -104,7 +119,7 @@ namespace TheHardestMod.Npcs
                     pandemoniumPC.Navigator.SetSpeed(speed);
                     
                     if (!Singleton<CoreGameManager>.Instance.GetPlayer(0).plm.Entity.Frozen) {
-                        speed += 5;
+                        speed = 5000;
                     } else speed = 0;
 
                     if (PanMini.done) {
