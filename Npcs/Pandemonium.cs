@@ -43,8 +43,9 @@ namespace TheHardestMod.Npcs
             base.Enter();
             SpeedToGo = 40f;
             pandemoniumPC.AudMan.QueueAudio(TheHardestMod.MainClass.Instance.Snd_Sfx_Pandemonium_Moving);
-            pandemoniumPC.AudMan.SetLoop(true);
-            
+            if ((Singleton<ModifiersCategorySettings>.Instance.c && !Singleton<ModifiersCategorySettings>.Instance.a) || Singleton<ModifiersCategorySettings>.Instance.e) {
+                pandemoniumPC.Despawn();
+            }
             
 
         }

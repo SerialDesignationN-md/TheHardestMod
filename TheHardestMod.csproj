@@ -243,6 +243,12 @@
     <Reference Include="EditorCustomRooms">
       <HintPath>..\dependencies\EditorCustomRooms.dll</HintPath>
     </Reference>
+    <Reference Include="PlusLevelLoader">
+      <HintPath>..\dependencies\PlusLevelLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="BaldiLevelEditor">
+      <HintPath>..\dependencies\BaldiLevelEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 

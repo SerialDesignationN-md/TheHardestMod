@@ -8,10 +8,13 @@ namespace TheHardestMod.Patches
         [HarmonyPostfix]
         [HarmonyPatch(typeof(ItemManager),"Awake")]
         static private void AwakePatch(ItemManager __instance) {
-            
-            Singleton<CoreGameManager>.Instance.GetHud(0).UpdateInventorySize(3);
-            __instance.maxItem = 2;
-            
+            if (!Singleton<ModifiersCategorySettings>.Instance.b) {
+                Singleton<CoreGameManager>.Instance.GetHud(0).UpdateInventorySize(3);
+                __instance.maxItem = 2;
+            } else {
+                Singleton<CoreGameManager>.Instance.GetHud(0).UpdateInventorySize(1);
+                __instance.maxItem = 0;
+            }
         }
 
 	
